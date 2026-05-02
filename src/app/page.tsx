@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import ThreeScene from "@/components/ThreeScene";
 import VentureCard from "@/components/VentureCard";
 import Link from "next/link";
 import { ArrowRight, Mail, ChevronDown } from "lucide-react";
@@ -78,7 +77,7 @@ export default function Home() {
     <div className="relative">
       {/* Section 1: Hero */}
       <section ref={heroRef} className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        <ThreeScene />
+
         
         {/* Background Orbs */}
         <div className="orb orb-gold top-1/4 -left-20 opacity-20 hidden lg:block" />
