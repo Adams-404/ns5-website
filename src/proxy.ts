@@ -1,23 +1,42 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export function proxy(req: NextRequest) {
+/**
+ * Middleware to handle subdomain routing (e.g., admin.ns5.org)
+ * and prevent infinite rewrite loops.
+ */
+export default function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const hostname = req.headers.get('host') || '';
+  const pathname = url.pathname;
 
-  // Check if the hostname starts with 'admin.'
-  // In local dev, this would be admin.localhost:3000
+  // Handle 'admin.' subdomain
   if (hostname.startsWith('admin.')) {
-    // Rewrite to the /admin route
-    const newUrl = new URL(`/admin${url.pathname}`, req.url);
+    // 1. Prevent loop: if already at /admin, or requesting a static asset
+    // the matcher should catch most of these, but we double-check here.
+    if (pathname.startsWith('/admin')) {
+      return NextResponse.next();
+    }
+
+    // 2. Rewrite root and other paths to the /admin route
+    // Note: If you want admin.ns5.org/ventures to show the main ventures page,
+    // you would add more conditions here. Currently, it rewrites to /admin/ventures.
+    const newUrl = new URL(`/admin${pathname}`, req.url);
     return NextResponse.rewrite(newUrl);
   }
 
   return NextResponse.next();
 }
 
-// Only run on non-api and non-static routes
+// Improved matcher to exclude common static assets and Next.js internals
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|logo.svg).*)',
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - Common static files in public or app (favicon, logo, icon, manifest, etc.)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|logo.svg|icon.svg|favicon.svg|robots.txt|sitemap.xml|manifest.json|apple-icon.png).*)',
   ],
 };
