@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 510" width="420" height="510">
+  <defs>
+
+    <!-- Main gold gradient: bright highlight to deep gold -->
+    <linearGradient id="goldMain" x1="15%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#E8CC6A"/>
+      <stop offset="30%"  stop-color="#C8A030"/>
+      <stop offset="65%"  stop-color="#B68C18"/>
+      <stop offset="100%" stop-color="#8A6808"/>
+    </linearGradient>
+
+    <!-- Gold gradient for sweep bar - horizontal shine -->
+    <linearGradient id="goldSweep" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#7A5C08"/>
+      <stop offset="18%"  stop-color="#B89020"/>
+      <stop offset="50%"  stop-color="#E0BC3C"/>
+      <stop offset="78%"  stop-color="#C8A428"/>
+      <stop offset="100%" stop-color="#8A6808"/>
+    </linearGradient>
+
+    <!-- Navy gradient for star body -->
+    <linearGradient id="navyStar" x1="0%" y1="0%" x2="10%" y2="100%">
+      <stop offset="0%"   stop-color="#1E3468"/>
+      <stop offset="100%" stop-color="#122040"/>
+    </linearGradient>
+
+    <!-- Gold for inter-star fill triangles (slightly brighter) -->
+    <linearGradient id="goldWing" x1="0%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%"   stop-color="#E0BC40"/>
+      <stop offset="100%" stop-color="#9A7C18"/>
+    </linearGradient>
+
+    <!-- 5 numeral gradient -->
+    <linearGradient id="goldFive" x1="5%" y1="0%" x2="95%" y2="100%">
+      <stop offset="0%"   stop-color="#E8CC5A"/>
+      <stop offset="45%"  stop-color="#C8A030"/>
+      <stop offset="100%" stop-color="#8A6808"/>
+    </linearGradient>
+
+  </defs>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- LAYER 1: OUTER STAR — navy fill, thick gold border  -->
+  <!-- cx=210, cy=200, outer_r=175, inner_r=70            -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <polygon
+    points="
+      210,25
+      251.1,143.4  376.4,145.9
+      276.6,221.6  312.9,341.6
+      210,270
+      107.1,341.6  143.4,221.6
+      43.6,145.9   168.9,143.4
+    "
+    fill="url(#navyStar)"
+    stroke="url(#goldMain)"
+    stroke-width="6.5"
+    stroke-linejoin="miter"
+  />
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- LAYER 2: INNER STAR OUTLINE — thinner gold ring     -->
+  <!-- cx=210, cy=200, outer_r=152, inner_r=62            -->
+  <!-- Creates the double-border / inset star effect       -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <polygon
+    points="
+      210,48
+      246.4,149.8  354.6,153
+      269,219.2    299.3,323
+      210,262
+      120.7,323    151,219.2
+      65.4,153     173.6,149.8
+    "
+    fill="none"
+    stroke="url(#goldMain)"
+    stroke-width="3"
+    stroke-linejoin="miter"
+  />
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- LAYER 3: GOLD WING FILLS                           -->
+  <!-- Between outer and inner star borders, top 3 wings  -->
+  <!-- These are the visible gold triangular insets        -->
+  <!-- ═══════════════════════════════════════════════════ -->
+
+  <!-- Top wing (between top outer point and inner star top) -->
+  <polygon
+    points="210,25  168.9,143.4  173.6,149.8  210,48  246.4,149.8  251.1,143.4"
+    fill="url(#goldWing)"
+    opacity="0.95"
+  />
+
+  <!-- Upper-right wing -->
+  <polygon
+    points="251.1,143.4  376.4,145.9  354.6,153  246.4,149.8"
+    fill="url(#goldWing)"
+    opacity="0.88"
+  />
+
+  <!-- Upper-left wing -->
+  <polygon
+    points="168.9,143.4  173.6,149.8  65.4,153  43.6,145.9"
+    fill="url(#goldWing)"
+    opacity="0.88"
+  />
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- LAYER 4: THE "5" NUMERAL                           -->
+  <!-- Serif, very bold, large, centred in star           -->
+  <!-- With slight depth shadow for lift                  -->
+  <!-- ═══════════════════════════════════════════════════ -->
+
+  <!-- Shadow -->
+  <text
+    x="213" y="260"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="172"
+    font-weight="900"
+    fill="#4A3005"
+    opacity="0.35"
+  >5</text>
+
+  <!-- Gold 5 -->
+  <text
+    x="210" y="256"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="172"
+    font-weight="900"
+    fill="url(#goldFive)"
+  >5</text>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- LAYER 5: SWEEP BAR                                 -->
+  <!-- Rising gold wedge — runs under bottom of star,     -->
+  <!-- from left-low to right-high, like a launching ramp -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <polygon
+    points="50,358  316,349  378,323  378,337  318,364  50,372"
+    fill="url(#goldSweep)"
+  />
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- LAYER 6: WORDMARK                                  -->
+  <!-- "NorthStar FIVE" — navy + gold, bold, centered     -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <text
+    x="210"
+    y="427"
+    text-anchor="middle"
+    font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+    font-size="50"
+    font-weight="900"
+    letter-spacing="-1"
+  >
+    <tspan fill="#1B2F5C">NorthStar </tspan><tspan fill="url(#goldMain)">FIVE</tspan>
+  </text>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- LAYER 7: TAGLINE                                   -->
+  <!-- "Raise the BAR Higher" — navy, medium, centered    -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <text
+    x="210"
+    y="468"
+    text-anchor="middle"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="21"
+    font-weight="600"
+    fill="#1B2F5C"
+    letter-spacing="2.5"
+  >Raise the BAR Higher</text>
+
+</svg>
