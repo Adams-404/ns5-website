@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, MessageSquare, Quote } from "lucide-react";
+import { ArrowRight, MessageSquare, Quote, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 const POSTS = [
@@ -25,6 +25,20 @@ const POSTS = [
     author: "NS5 Collective",
     excerpt: "Breaking down the mechanics of building five unicorns in five sectors over the next five years.",
     category: "Strategy",
+  },
+  {
+    title: "Unit Economics in Northern Markets",
+    date: "March 12, 2026",
+    author: "Fatima Bello",
+    excerpt: "Understanding the distribution anchors required to make high-volume, low-margin products work in the Sahel.",
+    category: "Economics",
+  },
+  {
+    title: "Designing for the Next Billion Users",
+    date: "February 28, 2026",
+    author: "Nasir Ibrahim Imam",
+    excerpt: "Visual languages that resonate with Northern Nigerian identity while meeting global UX standards.",
+    category: "Design",
   }
 ];
 
@@ -36,6 +50,10 @@ const QUOTES = [
   {
     text: "Code doesn't care about geography, but infrastructure does. We're building both.",
     author: "Muh'd Muh'd Tukur"
+  },
+  {
+    text: "The North is a sleeping giant that only wakes up when the trust is decentralized.",
+    author: "Amina Yusuf"
   }
 ];
 
@@ -62,8 +80,14 @@ export default function BlogPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="glass-panel p-8 md:p-12 hover:border-gold-primary/30 transition-all group"
+                className="glass-panel p-8 md:p-12 hover:border-gold-primary/30 transition-all group relative overflow-hidden"
               >
+                {i === 0 && (
+                  <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <Sparkles size={120} className="text-gold-primary" />
+                  </div>
+                )}
+                
                 <div className="flex items-center gap-4 mb-6">
                   <span className="text-gold-primary font-mono text-[10px] uppercase tracking-[0.3em] bg-gold-primary/10 px-3 py-1 rounded-full">
                     {post.category}
@@ -74,7 +98,7 @@ export default function BlogPage() {
                 </div>
                 
                 <Link href={`/blog/${i}`}>
-                  <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6 group-hover:text-gold-primary transition-colors">
+                  <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6 group-hover:text-gold-primary transition-colors leading-tight">
                     {post.title}
                   </h2>
                 </Link>
@@ -85,7 +109,7 @@ export default function BlogPage() {
                 
                 <div className="flex items-center justify-between pt-6 border-t border-white/5">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gold-primary/20 flex items-center justify-center text-[10px] text-gold-primary font-bold">
+                    <div className="w-8 h-8 rounded-full bg-gold-primary/20 flex items-center justify-center text-[10px] text-gold-primary font-bold border border-gold-primary/20">
                       {post.author[0]}
                     </div>
                     <span className="text-white font-mono text-[10px] uppercase tracking-widest">{post.author}</span>
@@ -113,6 +137,7 @@ export default function BlogPage() {
                     "{q.text}"
                   </p>
                   <p className="text-gold-primary font-mono text-[10px] uppercase tracking-widest">— {q.author}</p>
+                  {i !== QUOTES.length - 1 && <div className="h-px w-12 bg-white/5" />}
                 </div>
               ))}
             </div>
@@ -131,6 +156,18 @@ export default function BlogPage() {
                   className="w-full bg-white/5 border border-white/10 rounded-full px-6 py-3 text-sm text-white focus:outline-none focus:border-gold-primary"
                 />
                 <button className="glass-button w-full py-3 text-sm">Subscribe</button>
+              </div>
+            </div>
+            
+            {/* Quick Links / Categories */}
+            <div className="glass-panel p-10">
+              <h3 className="font-mono text-[10px] uppercase tracking-[0.3em] text-white mb-6">Categories</h3>
+              <div className="flex flex-wrap gap-2">
+                {["Philosophy", "Technology", "Strategy", "Economics", "Design"].map((cat) => (
+                  <span key={cat} className="text-[10px] font-mono uppercase tracking-widest text-dim-white hover:text-gold-primary cursor-pointer transition-colors border border-white/5 px-3 py-1 rounded-full bg-white/5">
+                    {cat}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
