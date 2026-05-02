@@ -8,12 +8,7 @@ export default function Footer() {
           {/* Logo & Tagline */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-3">
-              <svg width="24" height="24" viewBox="0 0 100 100">
-                <path
-                  d="M50 5 L61 38 L95 38 L68 59 L79 92 L50 72 L21 92 L32 59 L5 38 L39 38 Z"
-                  fill="#B8973A"
-                />
-              </svg>
+              <img src="/logo.svg" alt="NS5 Logo" className="w-8 h-8" />
               <span className="font-display text-lg font-bold tracking-tight text-white">
                 NorthStar <span className="text-gold-primary">FIVE</span>
               </span>
@@ -36,6 +31,7 @@ export default function Footer() {
               <Link href="/sessions" className="block text-dim-white hover:text-gold-primary transition-colors">Sessions</Link>
               <Link href="/press" className="block text-dim-white hover:text-gold-primary transition-colors">Press</Link>
               <Link href="/contact" className="block text-dim-white hover:text-gold-primary transition-colors">Contact</Link>
+              <Link href="/admin" className="block text-dim-white hover:text-gold-primary transition-colors">Admin</Link>
             </div>
           </div>
 
