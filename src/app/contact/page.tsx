@@ -2,136 +2,227 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Send, User, Building, MessageSquare } from "lucide-react";
+import { Send, ArrowRight, CheckCircle2, Video, Users, Lightbulb, Briefcase } from "lucide-react";
 
 export default function ContactPage() {
-  const [activeTab, setActiveTab] = useState<"founders" | "general">("founders");
+  const [formType, setFormType] = useState<"founder" | "general">("founder");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
 
   return (
     <div className="pt-32 pb-20">
       <div className="container mx-auto px-6">
-        <header className="mb-20 text-center max-w-2xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6">
+        <header className="max-w-3xl mb-16">
+          <h1 className="text-5xl md:text-8xl font-display font-bold text-white mb-6 tracking-tighter">
             Join the <span className="text-gold-primary">Room</span>
           </h1>
-          <p className="text-dim-white text-lg">
-            Whether you are building the next unicorn or want to support the ecosystem, we're ready to listen.
+          <p className="text-dim-white text-xl leading-relaxed">
+            Whether you are building the next anchor or looking to support the ecosystem, 
+            the conversation starts here.
           </p>
         </header>
 
-        <div className="max-w-4xl mx-auto">
-          {/* Pathway Selector */}
-          <div className="flex justify-center mb-12">
-            <div className="glass-panel p-1.5 flex gap-1">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          {/* Form Side */}
+          <div className="lg:col-span-8">
+            <div className="flex gap-4 mb-12">
               <button 
-                onClick={() => setActiveTab("founders")}
-                className={`px-8 py-3 rounded-xl font-display font-semibold transition-all ${
-                  activeTab === "founders" ? "bg-gold-primary text-navy-primary" : "text-white hover:bg-white/5"
+                onClick={() => setFormType("founder")}
+                className={`px-8 py-3 rounded-full font-mono text-xs tracking-widest transition-all ${
+                  formType === "founder" 
+                  ? "bg-gold-primary text-navy-primary shadow-[0_0_20px_rgba(184,151,58,0.3)]" 
+                  : "bg-white/5 text-dim-white hover:bg-white/10"
                 }`}
               >
-                I'm a Founder
+                APPLY AS FOUNDER (YC-STYLE)
               </button>
               <button 
-                onClick={() => setActiveTab("general")}
-                className={`px-8 py-3 rounded-xl font-display font-semibold transition-all ${
-                  activeTab === "general" ? "bg-gold-primary text-navy-primary" : "text-white hover:bg-white/5"
+                onClick={() => setFormType("general")}
+                className={`px-8 py-3 rounded-full font-mono text-xs tracking-widest transition-all ${
+                  formType === "general" 
+                  ? "bg-gold-primary text-navy-primary shadow-[0_0_20px_rgba(184,151,58,0.3)]" 
+                  : "bg-white/5 text-dim-white hover:bg-white/10"
                 }`}
               >
-                General Inquiry
+                GENERAL INQUIRY
               </button>
             </div>
-          </div>
 
-          <div className="liquid-glass p-8 md:p-12">
             <AnimatePresence mode="wait">
-              {activeTab === "founders" ? (
-                <motion.form 
-                  key="founders"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              {submitted ? (
+                <motion.div 
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="liquid-glass p-12 text-center space-y-6"
                 >
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono text-gold-pale uppercase tracking-widest pl-4">Your Name</label>
-                    <div className="relative">
-                      <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gold-primary/50" size={18} />
-                      <input type="text" placeholder="John Doe" className="w-full bg-white/5 border border-white/10 rounded-2xl px-12 py-4 text-white focus:outline-none focus:border-gold-primary transition-all" />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono text-gold-pale uppercase tracking-widest pl-4">Venture Name</label>
-                    <div className="relative">
-                      <Building className="absolute left-4 top-1/2 -translate-y-1/2 text-gold-primary/50" size={18} />
-                      <input type="text" placeholder="Acme Corp" className="w-full bg-white/5 border border-white/10 rounded-2xl px-12 py-4 text-white focus:outline-none focus:border-gold-primary transition-all" />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono text-gold-pale uppercase tracking-widest pl-4">Sector</label>
-                    <select className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-all appearance-none">
-                      <option className="bg-navy-primary">PropTech</option>
-                      <option className="bg-navy-primary">AgriTech</option>
-                      <option className="bg-navy-primary">Fintech</option>
-                      <option className="bg-navy-primary">Food-Tech</option>
-                      <option className="bg-navy-primary">Other</option>
-                    </select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono text-gold-pale uppercase tracking-widest pl-4">Stage</label>
-                    <select className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-all appearance-none">
-                      <option className="bg-navy-primary">Concept</option>
-                      <option className="bg-navy-primary">MVP / Building</option>
-                      <option className="bg-navy-primary">Early Revenue</option>
-                      <option className="bg-navy-primary">Scaling</option>
-                    </select>
-                  </div>
-                  <div className="space-y-2 md:col-span-2">
-                    <label className="text-xs font-mono text-gold-pale uppercase tracking-widest pl-4">One-Line Pitch</label>
-                    <textarea rows={3} placeholder="What inevitable problem are you solving?" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-all" />
-                  </div>
-                  <div className="md:col-span-2 text-right pt-4">
-                    <button className="glass-button w-full md:w-auto">
-                      Submit Application <Send size={18} className="ml-2" />
-                    </button>
-                  </div>
-                </motion.form>
+                  <CheckCircle2 className="text-gold-primary mx-auto" size={64} />
+                  <h2 className="text-3xl font-display font-bold text-white">Application Received</h2>
+                  <p className="text-dim-white max-w-md mx-auto">
+                    We've added your data to the queue. Our team deep-dives into applications every Tuesday. 
+                    Expect a response within 7-10 days.
+                  </p>
+                  <button onClick={() => setSubmitted(false)} className="text-gold-primary font-mono text-xs tracking-widest uppercase mt-8">
+                    Submit another response
+                  </button>
+                </motion.div>
               ) : (
                 <motion.form 
-                  key="general"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  className="space-y-6"
+                  key={formType}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  onSubmit={handleSubmit}
+                  className="space-y-8"
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-xs font-mono text-gold-pale uppercase tracking-widest pl-4">Full Name</label>
-                      <input type="text" placeholder="Jane Doe" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-all" />
+                  {formType === "founder" ? (
+                    /* YC Style Form */
+                    <div className="space-y-12">
+                      <section className="space-y-6">
+                        <div className="flex items-center gap-3 text-gold-primary mb-2">
+                          <Briefcase size={18} />
+                          <h3 className="font-mono text-xs uppercase tracking-[0.3em]">The Basics</h3>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-2">
+                            <label className="text-[10px] font-mono text-dim-white uppercase tracking-widest">Company Name</label>
+                            <input type="text" required className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-colors" />
+                          </div>
+                          <div className="space-y-2">
+                            <label className="text-[10px] font-mono text-dim-white uppercase tracking-widest">Company Website (if any)</label>
+                            <input type="url" placeholder="https://" className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-colors" />
+                          </div>
+                        </div>
+                      </section>
+
+                      <section className="space-y-6">
+                        <div className="flex items-center gap-3 text-gold-primary mb-2">
+                          <Lightbulb size={18} />
+                          <h3 className="font-mono text-xs uppercase tracking-[0.3em]">The Idea</h3>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-mono text-dim-white uppercase tracking-widest">What is your company going to make? (140 chars max)</label>
+                          <textarea maxLength={140} required className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-colors h-24 resize-none" />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-mono text-dim-white uppercase tracking-widest">Why did you pick this idea? Do you have domain expertise?</label>
+                          <textarea required className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-colors h-40" />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-mono text-dim-white uppercase tracking-widest">What do you know about this market that others don't?</label>
+                          <textarea required className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-colors h-40" />
+                        </div>
+                      </section>
+
+                      <section className="space-y-6">
+                        <div className="flex items-center gap-3 text-gold-primary mb-2">
+                          <Users size={18} />
+                          <h3 className="font-mono text-xs uppercase tracking-[0.3em]">The Team</h3>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-2">
+                            <label className="text-[10px] font-mono text-dim-white uppercase tracking-widest">Number of Founders</label>
+                            <input type="number" min="1" required className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-colors" />
+                          </div>
+                          <div className="space-y-2">
+                            <label className="text-[10px] font-mono text-dim-white uppercase tracking-widest">Are you technical? (Can you build the MVP?)</label>
+                            <select className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-colors appearance-none">
+                              <option className="bg-navy-primary">Yes, I'm a developer</option>
+                              <option className="bg-navy-primary">No, but we have a CTO</option>
+                              <option className="bg-navy-primary">No, looking for a technical co-founder</option>
+                            </select>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section className="space-y-6">
+                        <div className="flex items-center gap-3 text-gold-primary mb-2">
+                          <Video size={18} />
+                          <h3 className="font-mono text-xs uppercase tracking-[0.3em]">The Pitch</h3>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-mono text-dim-white uppercase tracking-widest">Link to 1-minute intro video (Loom, YouTube, etc.)</label>
+                          <input type="url" placeholder="https://" required className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-colors" />
+                        </div>
+                      </section>
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-mono text-gold-pale uppercase tracking-widest pl-4">Email Address</label>
-                      <input type="email" placeholder="jane@example.com" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-all" />
+                  ) : (
+                    /* General Inquiry Form */
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-mono text-dim-white uppercase tracking-widest">Full Name</label>
+                          <input type="text" required className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-colors" />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-mono text-dim-white uppercase tracking-widest">Email Address</label>
+                          <input type="email" required className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-colors" />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-mono text-dim-white uppercase tracking-widest">Subject</label>
+                        <select className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-colors appearance-none">
+                          <option className="bg-navy-primary">Partnership</option>
+                          <option className="bg-navy-primary">Press Inquiry</option>
+                          <option className="bg-navy-primary">Advisor Application</option>
+                          <option className="bg-navy-primary">Other</option>
+                        </select>
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-mono text-dim-white uppercase tracking-widest">Message</label>
+                        <textarea required className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-colors h-48" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono text-gold-pale uppercase tracking-widest pl-4">Message</label>
-                    <textarea rows={6} placeholder="How can we help you?" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-gold-primary transition-all" />
-                  </div>
-                  <div className="text-right pt-4">
-                    <button className="glass-button w-full md:w-auto">
-                      Send Message <Send size={18} className="ml-2" />
-                    </button>
-                  </div>
+                  )}
+
+                  <button 
+                    type="submit"
+                    className="glass-button w-full md:w-auto px-12 py-5 flex items-center justify-center gap-3 group"
+                  >
+                    Submit Application <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </button>
                 </motion.form>
               )}
             </AnimatePresence>
           </div>
-        </div>
 
-        <div className="mt-20 text-center text-dim-white/40 font-mono text-xs tracking-widest uppercase">
-          LinkedIn · Instagram · Twitter · hello@ns5.org
+          {/* Info Side */}
+          <div className="lg:col-span-4">
+            <div className="space-y-12 sticky top-32">
+              <div className="glass-panel p-10 space-y-6">
+                <h3 className="text-xl font-display font-bold text-white">Why the YC style?</h3>
+                <p className="text-sm text-dim-white leading-relaxed">
+                  We believe in clarity. If you can't explain what you do in 140 characters, 
+                  you haven't staying in the room long enough yet. 
+                </p>
+                <div className="h-px w-full bg-white/5" />
+                <p className="text-xs font-mono text-gold-primary tracking-widest uppercase">
+                  No Fluff. No Noise. Just Anchors.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <h4 className="font-mono text-[10px] uppercase tracking-widest text-dim-white/50">Other channels</h4>
+                <div className="space-y-4">
+                  <a href="#" className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:border-gold-primary/30 transition-all group">
+                    <span className="text-white text-sm">Follow on X</span>
+                    <ArrowRight size={16} className="text-gold-primary group-hover:translate-x-1 transition-transform" />
+                  </a>
+                  <a href="#" className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:border-gold-primary/30 transition-all group">
+                    <span className="text-white text-sm">Join the Newsletter</span>
+                    <ArrowRight size={16} className="text-gold-primary group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
